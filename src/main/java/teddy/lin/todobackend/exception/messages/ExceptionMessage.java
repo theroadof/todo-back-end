@@ -1,4 +1,4 @@
-package teddy.lin.todobackend.exception.exceptionMessage;
+package teddy.lin.todobackend.exception.messages;
 
 public enum ExceptionMessage {
     No_Such_Todo("No Such TodoM");

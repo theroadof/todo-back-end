@@ -8,6 +8,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import teddy.lin.todobackend.dto.RequestTodo;
 import teddy.lin.todobackend.dto.ResponseTodo;
+import teddy.lin.todobackend.exception.exceptions.NoSuchTodoException;
+import teddy.lin.todobackend.exception.messages.ExceptionMessage;
 import teddy.lin.todobackend.mapper.TodoMapper;
 import teddy.lin.todobackend.model.Todo;
 import teddy.lin.todobackend.repository.TodoRepository;
@@ -103,16 +105,18 @@ class TodoServiceTest {
     }
 
     @Test
-    void should_return_null_when_update_given_null_id() {
+    void should_throw_no_such_todo_exception_when_update_given_null_id() {
         //given
         RequestTodo requestTodo = new RequestTodo(ID, "test", true);
         when(todoRepository.findById(ID)).thenReturn(Optional.empty());
 
         //when
-        ResponseTodo responseTodo = todoService.update(ID, requestTodo);
+        Throwable exception = assertThrows(NoSuchTodoException.class, () ->
+                todoService.update(ID, requestTodo)
+        );
 
         //then
-        assertNull(responseTodo);
+        assertEquals(ExceptionMessage.No_Such_Todo.getErrorMessage(),exception.getMessage());
     }
 
     @Test

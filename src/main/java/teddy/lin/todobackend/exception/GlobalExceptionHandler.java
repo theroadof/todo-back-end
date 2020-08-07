@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import teddy.lin.todobackend.exception.exceptionMessage.ExceptionMessage;
+import teddy.lin.todobackend.exception.messages.ExceptionMessage;
 import teddy.lin.todobackend.exception.exceptions.NoSuchTodoException;
 
 @ControllerAdvice
