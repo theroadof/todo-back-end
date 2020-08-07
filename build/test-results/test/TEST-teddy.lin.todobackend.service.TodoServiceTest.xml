@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="teddy.lin.todobackend.service.TodoServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-08-06T11:29:18" hostname="LAPTOP-CS1OPOU2" time="0.918">
+<testsuite name="teddy.lin.todobackend.service.TodoServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-08-07T04:44:11" hostname="ZHA-ITA054-W10" time="0.838">
   <properties/>
-  <testcase name="should_return_updated_todo_when_update_given_id()" classname="teddy.lin.todobackend.service.TodoServiceTest" time="0.896"/>
-  <testcase name="should_return_null_when_update_given_wrong_id()" classname="teddy.lin.todobackend.service.TodoServiceTest" time="0.002"/>
-  <testcase name="should_return_null_when_update_given_null_id()" classname="teddy.lin.todobackend.service.TodoServiceTest" time="0.002"/>
-  <testcase name="should_return_all_todos_when_get_all_given_none()" classname="teddy.lin.todobackend.service.TodoServiceTest" time="0.001"/>
-  <testcase name="should_return_todo_when_save_given_todo()" classname="teddy.lin.todobackend.service.TodoServiceTest" time="0.003"/>
-  <testcase name="should_delete_todo_when_delete_given_id()" classname="teddy.lin.todobackend.service.TodoServiceTest" time="0.01"/>
+  <testcase name="should_return_updated_todo_when_update_given_id()" classname="teddy.lin.todobackend.service.TodoServiceTest" time="0.805"/>
+  <testcase name="should_return_null_when_update_given_wrong_id()" classname="teddy.lin.todobackend.service.TodoServiceTest" time="0.005"/>
+  <testcase name="should_throw_no_such_todo_exception_when_update_given_null_id()" classname="teddy.lin.todobackend.service.TodoServiceTest" time="0.004"/>
+  <testcase name="should_return_all_todos_when_get_all_given_none()" classname="teddy.lin.todobackend.service.TodoServiceTest" time="0.003"/>
+  <testcase name="should_return_todo_when_save_given_todo()" classname="teddy.lin.todobackend.service.TodoServiceTest" time="0.001"/>
+  <testcase name="should_delete_todo_when_delete_given_id()" classname="teddy.lin.todobackend.service.TodoServiceTest" time="0.014"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
