@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import teddy.lin.todobackend.model.Todo;
 import teddy.lin.todobackend.repository.TodoRepository;
@@ -12,6 +13,7 @@ import teddy.lin.todobackend.service.TodoService;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -47,11 +49,19 @@ class TodoControllerTest {
     }
 
     @Test
-    void should_return_response_todo_when_add_given_request_todo() {
+    void should_return_response_todo_when_add_given_request_todo() throws Exception {
         //given
-
+        String requestTodo = "{\n" +
+                "        \"id\": 71,\n" +
+                "        \"text\": \"yes ok good fine \",\n" +
+                "        \"status\": true\n" +
+                "    }";
 
         //when
+        mockMvc.perform(post(TODOS_URL).contentType(MediaType.APPLICATION_JSON)
+                .content(requestTodo))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").isNumber());
 
     }
 }
