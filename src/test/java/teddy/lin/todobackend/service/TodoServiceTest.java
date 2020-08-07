@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import teddy.lin.todobackend.dto.RequestTodo;
 import teddy.lin.todobackend.dto.ResponseTodo;
+import teddy.lin.todobackend.exception.exceptions.IllegalUpdateIDException;
 import teddy.lin.todobackend.exception.exceptions.NoSuchTodoException;
 import teddy.lin.todobackend.exception.messages.ExceptionMessage;
 import teddy.lin.todobackend.mapper.TodoMapper;
@@ -92,16 +93,18 @@ class TodoServiceTest {
     }
 
     @Test
-    void should_return_null_when_update_given_wrong_id() {
+    void should_throw_illegal_update_id_exception_when_update_given_wrong_id() {
         //given
         int id = 10;
         RequestTodo requestTodo = new RequestTodo(ID, "test", true);
 
         //when
-        ResponseTodo responseTodo = todoService.update(id, requestTodo);
+        Throwable exception = assertThrows(IllegalUpdateIDException.class, () ->
+                todoService.update(id, requestTodo)
+        );
 
         //then
-        assertNull(responseTodo);
+        assertEquals(ExceptionMessage.illegal_Update_ID.getErrorMessage(),exception.getMessage());
     }
 
     @Test
@@ -116,7 +119,7 @@ class TodoServiceTest {
         );
 
         //then
-        assertEquals(ExceptionMessage.No_Such_Todo.getErrorMessage(),exception.getMessage());
+        assertEquals(ExceptionMessage.No_Such_Todo.getErrorMessage(), exception.getMessage());
     }
 
     @Test
