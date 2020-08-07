@@ -3,6 +3,7 @@ package teddy.lin.todobackend.service;
 import org.springframework.stereotype.Service;
 import teddy.lin.todobackend.dto.RequestTodo;
 import teddy.lin.todobackend.dto.ResponseTodo;
+import teddy.lin.todobackend.exception.exceptions.IllegalUpdateIDException;
 import teddy.lin.todobackend.exception.exceptions.NoSuchTodoException;
 import teddy.lin.todobackend.exception.messages.ExceptionMessage;
 import teddy.lin.todobackend.mapper.TodoMapper;
@@ -37,7 +38,7 @@ public class TodoService {
 
     public ResponseTodo update(int id, RequestTodo requestTodo) {
         if (id != requestTodo.getId()) {
-            return null;
+            throw new IllegalUpdateIDException(ExceptionMessage.illegal_Update_ID.getErrorMessage());
         }
         Todo oldTodo = todoRepository.findById(id).orElse(null);
         if (isNull(oldTodo)) {
