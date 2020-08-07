@@ -50,6 +50,9 @@ public class TodoService {
 
     public void delete(int id) {
         Todo todo = todoRepository.findById(id).orElse(null);
+        if (isNull(todo)) {
+            throw new NoSuchTodoException(ExceptionMessage.No_Such_Todo.getErrorMessage());
+        }
         todoRepository.delete(todo);
     }
 }
