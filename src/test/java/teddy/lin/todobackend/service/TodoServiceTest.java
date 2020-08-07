@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.Collections.singletonList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -133,5 +134,17 @@ class TodoServiceTest {
 
         //then
         verify(todoRepository).delete(todo);
+    }
+
+    @Test
+    void should_throw_no_such_todo_exception_when_delete_given_id() {
+        //given
+        when(todoRepository.findById(ID)).thenReturn(Optional.empty());
+
+        //when
+        Throwable exception = assertThrows(NoSuchTodoException.class, () -> todoService.delete(ID));
+
+        //then
+        assertEquals(ExceptionMessage.No_Such_Todo.getErrorMessage(), exception.getMessage());
     }
 }
