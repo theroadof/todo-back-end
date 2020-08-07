@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import teddy.lin.todobackend.model.Todo;
 import teddy.lin.todobackend.repository.TodoRepository;
 import teddy.lin.todobackend.service.TodoService;
 
@@ -36,9 +37,21 @@ class TodoControllerTest {
 
     @Test
     void should_return_response_todos_when_get_all_given() throws Exception {
+        //given
+        todoRepository.save(new Todo(ID, "test", true));
+
         //when
         mockMvc.perform(get(TODOS_URL))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(8)));
+                .andExpect(jsonPath("$", hasSize(1)));
+    }
+
+    @Test
+    void should_return_response_todo_when_add_given_request_todo() {
+        //given
+
+
+        //when
+
     }
 }
