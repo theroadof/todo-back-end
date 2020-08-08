@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import teddy.lin.todobackend.model.Todo;
 import teddy.lin.todobackend.repository.TodoRepository;
-import teddy.lin.todobackend.service.TodoService;
 
 import java.util.List;
 
@@ -66,17 +65,17 @@ class TodoControllerTest {
     @Test
     void should_return_updated_response_to_when_update_given_id_and_request_todo() throws Exception {
         //given
-        todoRepository.save(new Todo(ID,"test",true));
+        todoRepository.save(new Todo(ID, "test", true));
         List<Todo> todos = todoRepository.findAll();
         Todo todo = todos.get(0);
         String requestTodo = "{\n" +
-                "        \"id\": "+todo.getId()+",\n" +
+                "        \"id\": " + todo.getId() + ",\n" +
                 "        \"text\": \"yes ok good fine \",\n" +
                 "        \"status\": false\n" +
                 "    }";
 
         //when
-        mockMvc.perform(put(TODOS_URL+"/"+todo.getId()).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(put(TODOS_URL + "/" + todo.getId()).contentType(MediaType.APPLICATION_JSON)
                 .content(requestTodo))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(todo.getId()))
@@ -84,5 +83,18 @@ class TodoControllerTest {
                 .andExpect(jsonPath("$.status").value(false));
 
         //then
+    }
+
+    @Test
+    void should_return_ok_status_when_delete_given_id() throws Exception {
+        //given
+        todoRepository.save(new Todo(ID, "test", true));
+        List<Todo> todos = todoRepository.findAll();
+        Todo todo = todos.get(0);
+
+        //when
+        mockMvc.perform(delete(TODOS_URL + "/" + todo.getId()))
+                .andExpect(status().isOk());
+
     }
 }
