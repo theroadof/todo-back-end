@@ -11,9 +11,10 @@ import teddy.lin.todobackend.model.Todo;
 import teddy.lin.todobackend.repository.TodoRepository;
 import teddy.lin.todobackend.service.TodoService;
 
+import java.util.List;
+
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -25,9 +26,6 @@ class TodoControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private TodoService todoService;
 
     @Autowired
     private TodoRepository todoRepository;
@@ -63,5 +61,28 @@ class TodoControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNumber());
 
+    }
+
+    @Test
+    void should_return_updated_response_to_when_update_given_id_and_request_todo() throws Exception {
+        //given
+        todoRepository.save(new Todo(ID,"test",true));
+        List<Todo> todos = todoRepository.findAll();
+        Todo todo = todos.get(0);
+        String requestTodo = "{\n" +
+                "        \"id\": "+todo.getId()+",\n" +
+                "        \"text\": \"yes ok good fine \",\n" +
+                "        \"status\": false\n" +
+                "    }";
+
+        //when
+        mockMvc.perform(put(TODOS_URL+"/"+todo.getId()).contentType(MediaType.APPLICATION_JSON)
+                .content(requestTodo))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(todo.getId()))
+                .andExpect(jsonPath("$.text").value("yes ok good fine "))
+                .andExpect(jsonPath("$.status").value(false));
+
+        //then
     }
 }
