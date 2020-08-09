@@ -1,0 +1,17 @@
+server:
+  port: 8800
+spring:
+  datasource:
+    url: jdbc:h2:file:./h2/todo
+    driver-class-name: org.h2.Driver
+  jpa:
+    database: h2
+    show-sql: true
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+
+  flyway:
+    location:
+      classpath: db/migration
